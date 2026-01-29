@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вход</title>
+  <style>
+    body{background:#111;color:#fff;font-family:Arial;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}
+    .box{width:320px;background:#1c1c1c;padding:20px;border-radius:12px}
+    input{width:100%;padding:10px;margin-top:10px;border-radius:8px;border:none}
+    button{width:100%;padding:10px;margin-top:12px;border-radius:8px;border:none;cursor:pointer}
+    .err{color:#ff6b6b;margin-top:10px}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Вход в админку</h2>
+
+    <form method="POST" action="/login/post/">
+      {% csrf_token %}
+      <input name="username" placeholder="Логин">
+      <input name="password" placeholder="Пароль" type="password">
+      <button type="submit">Войти</button>
+    </form>
+
+    {% if error %}
+      <div class="err">{{ error }}</div>
+    {% endif %}
+  </div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{{ profile.full_name }}</title>
+  <link rel="stylesheet" href="{% static 'resume/css/style.css' %}">
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <button class="nav-btn" onclick="loadSection('resume')">Резюме</button>
+      <button class="nav-btn" onclick="loadSection('plans')">Планы</button>
+      <button class="nav-btn" onclick="loadSection('skills')">Навыки</button>
+      <button class="nav-btn" onclick="loadSection('support')">Поддержка</button>
+      <a class="nav-btn nav-admin" href="/admin-panel/">Админка</a>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <!-- ЛЕВАЯ -->
+    <div class="left">
+      <div class="left-scroll" id="leftScroll">
+        <h1>{{ profile.full_name }}</h1>
+
+        <div id="leftContent">
+          <h2>{{ left_block.title }}</h2>
+          <p style="white-space: pre-line;">{{ left_block.content }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ЦЕНТР -->
+    <div class="center">
+      <div class="avatar-wrap">
+        {% if profile.avatar %}
+          <img class="avatar" src="{{ profile.avatar.url }}" alt="avatar">
+        {% else %}
+          <div class="avatar placeholder"></div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- ПРАВАЯ -->
+    <div class="right">
+      <div class="right-inner">
+
+        <div class="right-block">
+          <div class="right-title">КВАЛИФИКАЦИЯ:</div>
+          <div class="right-text">{{ profile.qualification }}</div>
+        </div>
+
+        <div class="right-block">
+          <div class="right-title">ХОББИ:</div>
+          <div class="right-text">{{ profile.hobbies }}</div>
+        </div>
+
+        <div class="right-block">
+          <div class="right-title">ЯЗЫКИ:</div>
+
+          <div class="lang-row">
+            <div class="lang-name">{{ profile.language_1 }}</div>
+            <div class="stars" data-stars="{{ profile.language_1_stars }}"></div>
+          </div>
+
+          <div class="lang-row">
+            <div class="lang-name">{{ profile.language_2 }}</div>
+            <div class="stars" data-stars="{{ profile.language_2_stars }}"></div>
+          </div>
+
+          <div class="lang-row">
+            <div class="lang-name">{{ profile.language_3 }}</div>
+            <div class="stars" data-stars="{{ profile.language_3_stars }}"></div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+<script src="{% static 'resume/js/main.js' %}"></script>
+</body>
+</html>

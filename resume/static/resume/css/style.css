@@ -1,0 +1,177 @@
+*{
+  box-sizing:border-box;
+  font-family: Arial, sans-serif;
+}
+
+body{
+  margin:0;
+  background:#000;
+  color:#fff;
+}
+
+/* верхняя палочка меню */
+.topbar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  padding:15px 0;
+  z-index:100;
+  display:flex;
+  justify-content:center;
+}
+
+.topbar-inner{
+  background:#1c1c1c;
+  padding:10px 16px;
+  border-radius:30px;
+  display:flex;
+  gap:10px;
+}
+
+.nav-btn{
+  background:transparent;
+  color:#fff;
+  border:none;
+  cursor:pointer;
+  padding:8px 14px;
+  border-radius:20px;
+  font-size:14px;
+}
+
+.nav-btn:hover{
+  background:#2a2a2a;
+}
+
+.nav-admin{
+  text-decoration:none;
+  border:1px solid #444;
+}
+
+/* общая сетка */
+.page{
+  display:flex;
+  height:100vh;
+  padding-top:70px;
+}
+
+/* ЛЕВАЯ часть */
+.left{
+  width:45%;
+  background:linear-gradient(180deg, #69d6b0, #4aa892);
+}
+
+.left-scroll{
+  height:100%;
+  overflow-y:auto;
+  padding:40px 30px;
+}
+
+.left h1{
+  font-size:42px;
+  margin:0 0 15px 0;
+  color:#0d1b16;
+}
+
+.left-text{
+  font-size:16px;
+  line-height:1.6;
+  color:#0d1b16;
+}
+
+/* центр фото */
+.center{
+  width:10%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.avatar-wrap{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  border:4px solid #69d6b0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#111;
+}
+
+.avatar{
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  object-fit:cover;
+}
+
+.avatar.placeholder{
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  background:#333;
+}
+
+/* правая часть */
+.right{
+  width:45%;
+  background:#050505;
+  padding:40px 30px;
+  display:flex;
+}
+
+.right-inner{
+  width:100%;
+  max-width:360px;
+  margin-left:auto;
+}
+
+.right-block{
+  margin-bottom:25px;
+}
+
+.right-title{
+  color:#69d6b0;
+  font-weight:bold;
+  margin-bottom:8px;
+  font-size:13px;
+  letter-spacing:1px;
+}
+
+.right-text{
+  color:#bdbdbd;
+  font-size:14px;
+}
+
+.lang-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:12px;
+}
+
+.lang-name{
+  color:#bdbdbd;
+  font-size:14px;
+}
+
+.stars{
+  font-size:14px;
+  letter-spacing:2px;
+}
+
+/* адаптация */
+@media(max-width: 900px){
+  .page{
+    flex-direction:column;
+    height:auto;
+  }
+  .left,.right{
+    width:100%;
+    min-height:40vh;
+  }
+  .center{
+    width:100%;
+    padding:20px 0;
+  }
+}
