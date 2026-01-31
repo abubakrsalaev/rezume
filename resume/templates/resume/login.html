@@ -3,29 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Вход</title>
+  <title>Вход в админку</title>
   <style>
-    body{background:#111;color:#fff;font-family:Arial;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}
-    .box{width:320px;background:#1c1c1c;padding:20px;border-radius:12px}
-    input{width:100%;padding:10px;margin-top:10px;border-radius:8px;border:none}
-    button{width:100%;padding:10px;margin-top:12px;border-radius:8px;border:none;cursor:pointer}
-    .err{color:#ff6b6b;margin-top:10px}
+    body{font-family:Arial;background:#bcd8ff;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;}
+    .box{background:#fff;padding:30px;border-radius:12px;width:350px;}
+    input{width:100%;padding:12px;margin-top:10px;border:1px solid #ddd;border-radius:8px;}
+    button{width:100%;padding:12px;margin-top:15px;background:#111;color:#fff;border:none;border-radius:8px;cursor:pointer;}
+    .err{color:red;margin-top:10px;}
   </style>
 </head>
 <body>
   <div class="box">
-    <h2>Вход в админку</h2>
-
-    <form method="POST" action="/login/post/">
+    <h2>Админка</h2>
+    <form method="post">
       {% csrf_token %}
-      <input name="username" placeholder="Логин">
-      <input name="password" placeholder="Пароль" type="password">
+      <input type="text" name="username" placeholder="Логин" required>
+      <input type="password" name="password" placeholder="Пароль" required>
       <button type="submit">Войти</button>
+      {% if error %}<div class="err">{{ error }}</div>{% endif %}
     </form>
-
-    {% if error %}
-      <div class="err">{{ error }}</div>
-    {% endif %}
   </div>
 </body>
 </html>

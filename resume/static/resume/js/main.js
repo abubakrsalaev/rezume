@@ -1,36 +1,17 @@
-function renderStars(el){
-  const stars = parseInt(el.dataset.stars || "0");
-  let s = "";
-  for(let i=1;i<=5;i++){
-    s += (i <= stars) ? "★" : "☆";
-  }
-  el.innerText = s;
-}
+function showTab(name){
+  const tabs = ["about","resume","portfolio","support"];
+  tabs.forEach(t=>{
+    document.getElementById("tab-"+t).classList.remove("active");
+  });
 
-document.querySelectorAll(".stars").forEach(renderStars);
+  document.getElementById("tab-"+name).classList.add("active");
 
-async function loadSection(key){
-  const res = await fetch(`/api/left/${key}/`);
-  const data = await res.json();
+  const titleMap = {
+    about: "Обо мне",
+    resume: "Резюме",
+    portfolio: "Портфолио",
+    support: "Поддержка"
+  };
 
-  let html = `<h2>${data.title}</h2>
-              <p style="white-space: pre-line;">${data.content || ""}</p>`;
-
-  if(key === "support"){
-    let links = "";
-    if(data.instagram){
-      links += <p><b>Instagram:</b> <a href="${data.instagram}" target="_blank">${data.instagram}</a></p>;
-    }
-    if(data.telegram){
-      links += <p><b>Telegram:</b> <a href="${data.telegram}" target="_blank">${data.telegram}</a></p>;
-    }
-    if(!links){
-      links = "<p>Ссылки пока не добавлены (добавь через админку).</p>";
-    }
-
-    html += <hr>${links};
-  }
-
-  document.getElementById("leftContent").innerHTML = html;
-  document.getElementById("leftScroll").scrollTop = 0;
+  document.getElementById("tab-title").innerText = titleMap[name];
 }

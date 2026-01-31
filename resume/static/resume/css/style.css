@@ -1,177 +1,192 @@
 *{
+  margin:0;
+  padding:0;
   box-sizing:border-box;
   font-family: Arial, sans-serif;
 }
 
 body{
-  margin:0;
-  background:#000;
-  color:#fff;
+  background:#f5f5f5;
 }
 
-/* верхняя палочка меню */
-.topbar{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  padding:15px 0;
-  z-index:100;
-  display:flex;
-  justify-content:center;
-}
-
-.topbar-inner{
-  background:#1c1c1c;
-  padding:10px 16px;
-  border-radius:30px;
-  display:flex;
-  gap:10px;
-}
-
-.nav-btn{
-  background:transparent;
-  color:#fff;
-  border:none;
-  cursor:pointer;
-  padding:8px 14px;
-  border-radius:20px;
-  font-size:14px;
-}
-
-.nav-btn:hover{
-  background:#2a2a2a;
-}
-
-.nav-admin{
-  text-decoration:none;
-  border:1px solid #444;
-}
-
-/* общая сетка */
 .page{
   display:flex;
-  height:100vh;
-  padding-top:70px;
+  min-height:100vh;
 }
 
-/* ЛЕВАЯ часть */
+/* LEFT */
 .left{
-  width:45%;
-  background:linear-gradient(180deg, #69d6b0, #4aa892);
-}
-
-.left-scroll{
-  height:100%;
-  overflow-y:auto;
-  padding:40px 30px;
-}
-
-.left h1{
-  font-size:42px;
-  margin:0 0 15px 0;
-  color:#0d1b16;
-}
-
-.left-text{
-  font-size:16px;
-  line-height:1.6;
-  color:#0d1b16;
-}
-
-/* центр фото */
-.center{
-  width:10%;
+  width:40%;
+  background:#ffffff;
+  padding:40px;
   display:flex;
-  justify-content:center;
-  align-items:center;
+  flex-direction:column;
+  justify-content:flex-start;
 }
 
 .avatar-wrap{
-  width:120px;
-  height:120px;
+  width:140px;
+  height:140px;
   border-radius:50%;
-  border:4px solid #69d6b0;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:#111;
+  overflow:hidden;
+  border:4px solid #111;
 }
 
 .avatar{
-  width:110px;
-  height:110px;
-  border-radius:50%;
+  width:100%;
+  height:100%;
   object-fit:cover;
 }
 
-.avatar.placeholder{
-  width:110px;
-  height:110px;
+.avatar.empty{
+  width:140px;
+  height:140px;
   border-radius:50%;
-  background:#333;
+  background:#ddd;
 }
 
-/* правая часть */
-.right{
-  width:45%;
-  background:#050505;
-  padding:40px 30px;
-  display:flex;
+.name{
+  font-size:44px;
+  font-weight:700;
+  margin-top:25px;
 }
 
-.right-inner{
-  width:100%;
-  max-width:360px;
-  margin-left:auto;
+.role{
+  font-size:18px;
+  margin-top:10px;
+  color:#444;
 }
 
-.right-block{
-  margin-bottom:25px;
-}
-
-.right-title{
-  color:#69d6b0;
-  font-weight:bold;
-  margin-bottom:8px;
-  font-size:13px;
+.btn-black{
+  margin-top:25px;
+  padding:14px 18px;
+  background:#111;
+  color:#fff;
+  border:none;
+  cursor:pointer;
+  font-size:14px;
   letter-spacing:1px;
+  width:220px;
 }
 
-.right-text{
-  color:#bdbdbd;
-  font-size:14px;
-}
-
-.lang-row{
+.contact-box{
+  margin-top:30px;
   display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.contact-item{
+  border:1px solid #eee;
+  padding:12px 14px;
+  border-radius:8px;
+}
+
+.label{
+  display:block;
+  font-size:12px;
+  color:#666;
+}
+
+.value{
+  display:block;
+  font-size:15px;
+  margin-top:4px;
+  color:#111;
+}
+
+.admin-link{
+  margin-top:25px;
+}
+
+.admin-link a{
+  text-decoration:none;
+  color:#111;
+  font-weight:600;
+}
+
+/* RIGHT */
+.right{
+  width:60%;
+  background:#bcd8ff;
+  padding:50px 60px;
+  display:flex;
+  flex-direction:column;
   justify-content:space-between;
-  align-items:center;
-  margin-top:12px;
 }
 
-.lang-name{
-  color:#bdbdbd;
-  font-size:14px;
+.right-top h2{
+  font-size:28px;
+  font-weight:700;
 }
 
-.stars{
-  font-size:14px;
-  letter-spacing:2px;
+.line{
+  margin-top:15px;
+  border:none;
+  border-top:2px solid rgba(0,0,0,0.3);
+  width:70%;
 }
 
-/* адаптация */
-@media(max-width: 900px){
-  .page{
-    flex-direction:column;
-    height:auto;
-  }
-  .left,.right{
-    width:100%;
-    min-height:40vh;
-  }
-  .center{
-    width:100%;
-    padding:20px 0;
-  }
+.right-content{
+  margin-top:25px;
+  flex:1;
+  overflow:auto;
+  padding-right:10px;
+}
+
+.text{
+  font-size:15px;
+  line-height:1.7;
+  color:#111;
+  max-width:600px;
+}
+
+.buttons{
+  margin-top:25px;
+  display:flex;
+  gap:18px;
+}
+
+.btn-outline{
+  padding:12px 30px;
+  background:transparent;
+  border:2px solid #111;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.tab{
+  display:none;
+}
+
+.tab.active{
+  display:block;
+}
+
+.resume-block{
+  margin-top:15px;
+  background:rgba(255,255,255,0.55);
+  padding:16px;
+  border-radius:12px;
+  line-height:1.7;
+}
+
+.right-footer{
+  margin-top:25px;
+}
+
+.icons{
+  display:flex;
+  gap:25px;
+}
+
+.icons a{
+  text-decoration:none;
+  font-weight:700;
+  color:#111;
+}
+.about-pre{
+  white-space: pre-wrap;
+  font-family: inherit;
+  margin: 0;
 }

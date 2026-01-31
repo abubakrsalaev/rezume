@@ -2,50 +2,51 @@ from django.db import models
 
 
 class Profile(models.Model):
-    full_name = models.CharField("Имя", max_length=100)
-    about_text = models.TextField("Текст резюме", blank=True)
-    avatar = models.ImageField("Фото", upload_to="profile/", blank=True, null=True)
+    full_name = models.CharField("Имя", max_length=120)
+    position = models.CharField("Должность", max_length=120, blank=True)
+    about = models.TextField("Обо мне", blank=True)
 
-    qualification = models.CharField("Квалификация", max_length=150, blank=True)
-    hobbies = models.CharField("Хобби", max_length=200, blank=True)
+    photo = models.ImageField("Фото", upload_to="profile/", blank=True, null=True)
 
-    # справа (языки по звёздам, как на фотке)
-    language_1 = models.CharField("Язык 1", max_length=50, blank=True)
-    language_1_stars = models.IntegerField("Звёзды 1", default=5)
+    email = models.EmailField("Email", blank=True)
+    phone = models.CharField("Телефон", max_length=50, blank=True)
+    location = models.CharField("Город", max_length=120, blank=True)
 
-    language_2 = models.CharField("Язык 2", max_length=50, blank=True)
-    language_2_stars = models.IntegerField("Звёзды 2", default=4)
+    instagram = models.URLField("Instagram", blank=True)
+    telegram = models.URLField("Telegram", blank=True)
+    github = models.URLField("GitHub", blank=True)
 
-    language_3 = models.CharField("Язык 3", max_length=50, blank=True)
-    language_3_stars = models.IntegerField("Звёзды 3", default=3)
+    resume_text = models.TextField("Резюме (текст)", blank=True)
+    portfolio_text = models.TextField("Портфолио (текст)", blank=True)
 
     def __str__(self):
         return self.full_name
 
 
-class LeftBlock(models.Model):
-    """
-    Это то что меняется в зелёной части:
-    резюме / поддержка / и т.д.
-    """
-    key = models.CharField("Ключ", max_length=50, unique=True)  # resume, support, plans, skills ...
-    title = models.CharField("Заголовок", max_length=100)
-    content = models.TextField("Текст", blank=True)
-
-    # ссылки (для поддержки)
-    instagram = models.CharField("Instagram", max_length=200, blank=True)
-    telegram = models.CharField("Telegram", max_length=200, blank=True)
+class Skill(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="skills")
+    name = models.CharField("Навык", max_length=120)
 
     def __str__(self):
-        return self.key
+        return self.name
 
 
-class AdminUser(models.Model):
-    """
-    Твоя простая админка (логин/пароль).
-    """
-    username = models.CharField(max_length=50, unique=True)
-    password = models.CharField(max_length=100)  # (можно потом хешировать)
+class Experience(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="experiences")
+    title = models.CharField("Должность", max_length=120)
+    company = models.CharField("Компания", max_length=120, blank=True)
+    years = models.CharField("Годы", max_length=50, blank=True)
+    description = models.TextField("Описание", blank=True)
 
     def __str__(self):
-        return self.username
+        return f"{self.title} ({self.company})"
+
+
+class Education(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="educations")
+    name = models.CharField("Учёба / Университет", max_length=200)
+    years = models.CharField("Годы", max_length=50, blank=True)
+    description = models.TextField("Описание", blank=True)
+
+    def __str__(self):
+        return self.name

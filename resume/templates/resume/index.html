@@ -1,88 +1,123 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>{{ profile.full_name }}</title>
-  <link rel="stylesheet" href="{% static 'resume/css/style.css' %}">
-</head>
-<body>
 
-  <div class="topbar">
-    <div class="topbar-inner">
-      <button class="nav-btn" onclick="loadSection('resume')">Резюме</button>
-      <button class="nav-btn" onclick="loadSection('plans')">Планы</button>
-      <button class="nav-btn" onclick="loadSection('skills')">Навыки</button>
-      <button class="nav-btn" onclick="loadSection('support')">Поддержка</button>
-      <a class="nav-btn nav-admin" href="/admin-panel/">Админка</a>
-    </div>
-  </div>
+{% extends "resume/base.html" %}
+{% block title %}Главная{% endblock %}
 
-  <div class="page">
+{% block content %}
+<div class="container">
 
-    <!-- ЛЕВАЯ -->
-    <div class="left">
-      <div class="left-scroll" id="leftScroll">
-        <h1>{{ profile.full_name }}</h1>
+  <!-- LEFT SIDE -->
+  <div class="left">
 
-        <div id="leftContent">
-          <h2>{{ left_block.title }}</h2>
-          <p style="white-space: pre-line;">{{ left_block.content }}</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- ЦЕНТР -->
-    <div class="center">
-      <div class="avatar-wrap">
-        {% if profile.avatar %}
-          <img class="avatar" src="{{ profile.avatar.url }}" alt="avatar">
+    <div>
+      <div class="photo-wrap">
+        {% if profile and profile.photo %}
+          <img class="photo" src="{{ profile.photo.url }}" alt="photo">
         {% else %}
-          <div class="avatar placeholder"></div>
+          <img class="photo" src="https://via.placeholder.com/120" alt="photo">
+        {% endif %}
+      </div>
+
+      <div class="name">
+        {% if profile %}{{ profile.full_name }}{% else %}Ваше Имя{% endif %}
+      </div>
+
+      <div class="position">
+        {% if profile %}{{ profile.position }}{% else %}Ваша профессия{% endif %}
+      </div>
+
+      <button class="btn btn-black"
+              onclick="window.location.href='mailto:{% if profile %}{{ profile.email }}{% endif %}'">
+        EMAIL ME
+      </button>
+
+      <!-- CONTACTS (карточки как ты хотел) -->
+      <div class="contact-cards">
+        {% if profile.phone %}
+          <div class="contact-card">
+            <div class="contact-title">Телефон</div>
+            <div class="contact-value">{{ profile.phone }}</div>
+          </div>
+        {% endif %}
+
+        {% if profile.email %}
+          <div class="contact-card">
+            <div class="contact-title">Email</div>
+            <div class="contact-value">{{ profile.email }}</div>
+          </div>
+        {% endif %}
+
+        {% if profile.location %}
+          <div class="contact-card">
+            <div class="contact-title">Локация</div>
+            <div class="contact-value">{{ profile.location }}</div>
+          </div>
         {% endif %}
       </div>
     </div>
 
-    <!-- ПРАВАЯ -->
-    <div class="right">
-      <div class="right-inner">
+    <!-- SOCIALS BOTTOM (как оригинальные иконки) -->
+    <div class="socials">
+      {% if profile and profile.instagram %}
+        <a class="social-icon" href="{{ profile.instagram }}" target="_blank" title="Instagram">
+          <svg viewBox="0 0 24 24" width="22" height="22">
+            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 4a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.5-.8a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2z"/>
+          </svg>
+        </a>
+      {% endif %}
 
-        <div class="right-block">
-          <div class="right-title">КВАЛИФИКАЦИЯ:</div>
-          <div class="right-text">{{ profile.qualification }}</div>
-        </div>
+      {% if profile and profile.telegram %}
+        <a class="social-icon" href="{{ profile.telegram }}" target="_blank" title="Telegram">
+          <svg viewBox="0 0 24 24" width="22" height="22">
+            <path d="M21.8 4.6 3.5 11.7c-1.2.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.1.8.8.8.6 0 .9-.3 1.2-.6l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.2-.5-1.8-1.3-1.5zM9.1 14.3l9.4-5.9c.4-.2.8.1.5.4l-7.6 6.9-.3 3.6-1.7-5z"/>
+          </svg>
+        </a>
+      {% endif %}
 
-        <div class="right-block">
-          <div class="right-title">ХОББИ:</div>
-          <div class="right-text">{{ profile.hobbies }}</div>
-        </div>
-
-        <div class="right-block">
-          <div class="right-title">ЯЗЫКИ:</div>
-
-          <div class="lang-row">
-            <div class="lang-name">{{ profile.language_1 }}</div>
-            <div class="stars" data-stars="{{ profile.language_1_stars }}"></div>
-          </div>
-
-          <div class="lang-row">
-            <div class="lang-name">{{ profile.language_2 }}</div>
-            <div class="stars" data-stars="{{ profile.language_2_stars }}"></div>
-          </div>
-
-          <div class="lang-row">
-            <div class="lang-name">{{ profile.language_3 }}</div>
-            <div class="stars" data-stars="{{ profile.language_3_stars }}"></div>
-          </div>
-
-        </div>
-
-      </div>
+      {% if profile and profile.github %}
+        <a class="social-icon" href="{{ profile.github }}" target="_blank" title="GitHub">
+          <svg viewBox="0 0 24 24" width="22" height="22">
+            <path d="M12 .6a11.4 11.4 0 0 0-3.6 22.2c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.6-1.5-1.4-1.9-1.4-1.9-1.1-.8.1-.8.1-.8 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.2 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.4 11.4 0 0 0 12 .6z"/>
+          </svg>
+        </a>
+      {% endif %}
     </div>
 
   </div>
 
-<script src="{% static 'resume/js/main.js' %}"></script>
-</body>
-</html>
+  <!-- RIGHT SIDE -->
+  <div class="right">
+
+    <div class="top-admin">
+      <a class="admin-link" href="{% url 'resume:admin_panel' %}">Admin</a>
+    </div>
+
+    <h2>About Me</h2>
+    <div class="line"></div>
+
+    <div class="about">
+      {% if profile %}
+        <pre class="text-pre">{{ profile.about }}</pre>
+      {% else %}
+        Тут будет текст “Обо мне”. Его можно поменять через админку сайта.
+       {% endif %}
+    </div>
+
+    <!-- ТОЛЬКО ОДНА КНОПКА RESUME -->
+    <div class="tabs">
+      <div class="tab-btn" style="width:180px;" onclick="scrollToResume()">Resume</div>
+    </div>
+
+    <div class="tab-content" id="resumeBlock">
+      {% if profile %}{{ profile.resume_text|linebreaks }}{% else %}Тут будет резюме{% endif %}
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  function scrollToResume(){
+    document.getElementById("resumeBlock").scrollIntoView({behavior:"smooth", block:"start"});
+  }
+</script>
+{% endblock %}
